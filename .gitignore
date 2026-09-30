@@ -216,3 +216,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ThirdEye local configuration and model assets
+.env*
+!.env.example
+*.pt
+*.pth
+*.onnx
+*.tflite
+mobileclip*.ts
+*.npz
+*.task
+!models/hand_landmarker.task
+firmware/**/secrets.h
+__pycache__/
+.pytest_cache/
+.venv/
+recordings/
+captures/
