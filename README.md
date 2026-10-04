@@ -20,7 +20,7 @@ ThirdEye is an AI-assisted smart-glasses prototype designed to make visual assis
 | Camera | OV2640 |
 | Microphone | INMP441 I2S |
 | Speaker amplifier | MAX98357A |
-| Motion sensor | MPU6500 |
+| Motion sensor | IMU Sensor |
 
 The firmware uses the existing board pin map. Check [firmware/README.md](firmware/README.md) and confirm your board revision and wiring before flashing.
 
