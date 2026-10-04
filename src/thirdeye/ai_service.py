@@ -44,6 +44,8 @@ def is_english_command_text(text: str) -> bool:
 def _local_command(text: str) -> Command:
     cleaned = " ".join(text.strip().split())
     lowered = cleaned.lower()
+    if len(re.findall(r"[.!?]", cleaned)) >= 4:
+        return Command(Intent.UNKNOWN)
     if lowered in {"shutdown third eye", "close third eye"}:
         return Command(Intent.EXIT)
     if lowered in {"exit", "quit", "stop", "退出", "结束"}:
@@ -59,6 +61,8 @@ def _local_command(text: str) -> Command:
         match = re.search(pattern, lowered)
         if match:
             target = match.group(1).strip(" .,!?")
+            if target in {"a", "an", "the", "my"} or "..." in match.group(0):
+                return Command(Intent.FIND_OBJECT)
             return Command(Intent.FIND_OBJECT, normalize_visual_target(target) if target else None)
     if any(phrase in lowered for phrase in (
         "what do you see", "what can you see", "what is in front", "what's in front",
@@ -103,6 +107,8 @@ class AIService:
 
     def understand_command(self, text: str) -> Command:
         local = _local_command(text)
+        if len(re.findall(r"[.!?]", text)) >= 4:
+            return local
         target_is_english = local.target is None or local.target.isascii()
         if (
             local.intent is not Intent.UNKNOWN
@@ -144,12 +150,6 @@ class AIService:
                 model=self._transcribe_model,
                 file=audio_file,
                 language=self._language,
-                prompt=(
-                    "Hi Third Eye. Find my bottle. Find my keys. Find my phone. "
-                    "Describe the scene. What do you see? What is in front of me? "
-                    "What does the sign say? What am I holding? What color is it? "
-                    "What does it say? Stop. Exit. Shutdown Third Eye."
-                ),
             )
         return result.text.strip()
 

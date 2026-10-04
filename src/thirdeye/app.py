@@ -315,8 +315,7 @@ class ThirdEyeApp:
             peak = int(np.abs(samples.astype(np.int32)).max(initial=0))
             rms = float(np.sqrt(np.mean(samples.astype(np.float32) ** 2)))
             active = peak >= voice_peak_threshold and rms >= voice_rms_threshold
-            # Measure VAD before gain; both streaming ASR and local wake receive clean, louder PCM.
-            samples = np.clip(samples.astype(np.int32) * 4, -32768, 32767).astype(np.int16)
+            # Keep the captured waveform intact; file transcription normalizes it after trimming.
             if not speech_started:
                 pre_roll.append(samples.copy())
                 pre_roll_frames += len(samples)
@@ -363,7 +362,7 @@ class ThirdEyeApp:
         mono = np.concatenate(chunks)
         peak = int(np.abs(mono.astype(np.int32)).max(initial=0))
         rms = float(np.sqrt(np.mean(mono.astype(np.float32) ** 2)))
-        print(f"ESP32 speech audio (filtered, 4x gain): {len(mono) / sample_rate:.2f}s, peak={peak}, rms={rms:.1f}", flush=True)
+        print(f"ESP32 speech audio (filtered): {len(mono) / sample_rate:.2f}s, peak={peak}, rms={rms:.1f}", flush=True)
         if return_samples:
             return mono
         prepared = _prepare_speech_samples(mono, sample_rate)
@@ -1001,8 +1000,8 @@ class ThirdEyeApp:
                 else:
                     if self._uses_esp32_audio():
                         audio_path = (
-                            self._record_esp32_audio(5.0, wait_timeout=wait_timeout)
-                            if following_up else self._record_esp32_audio(5.0)
+                            self._record_esp32_audio(7.0, wait_timeout=wait_timeout)
+                            if following_up else self._record_esp32_audio(7.0)
                         )
                     else:
                         recorder = Recorder(device=self.settings.microphone_device)

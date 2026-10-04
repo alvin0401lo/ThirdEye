@@ -10,6 +10,38 @@ def test_find_my_bottle():
     assert command.target == "water bottle"
 
 
+def test_incomplete_find_command_has_no_target():
+    service = AIService(None, "command-model", "transcribe-model")
+    for text in ("Find a...", "Find my", "Find the..."):
+        command = service.understand_command(text)
+        assert command.intent is Intent.FIND_OBJECT
+        assert command.target is None
+
+
+def test_transcription_command_list_is_not_executed():
+    service = AIService(None, "command-model", "transcribe-model")
+    command = service.understand_command(
+        "Hi Third Eye. Find my bottle. Find my keys. Find my phone. "
+        "Describe the scene. What do you see? Shutdown Third Eye."
+    )
+    assert command.intent is Intent.UNKNOWN
+
+
+def test_transcription_does_not_prime_model_with_commands(tmp_path):
+    audio_path = tmp_path / "speech.wav"
+    audio_path.write_bytes(b"audio")
+    received = {}
+
+    def create(**kwargs):
+        received.update(kwargs)
+        return SimpleNamespace(text="Find my bottle")
+
+    service = AIService(None, "command-model", "transcribe-model")
+    service._client = SimpleNamespace(audio=SimpleNamespace(transcriptions=SimpleNamespace(create=create)))
+    assert service.transcribe(str(audio_path)) == "Find my bottle"
+    assert "prompt" not in received
+
+
 def test_chinese_target_is_normalized_for_yoloe():
     command = _local_command("帮我找一下水瓶")
     assert command.intent is Intent.FIND_OBJECT
