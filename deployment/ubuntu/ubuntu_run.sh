@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 cd "$PROJECT_ROOT"
 
 if [[ ! -x .venv/bin/python ]]; then
-  if [[ ! -f deployment/setup.sh ]]; then
-    echo "Missing deployment/setup.sh."
-    exit 1
-  fi
   echo "First launch: preparing the environment..."
-  bash ./deployment/setup.sh
+  bash ./deployment/ubuntu/ubuntu_setup.sh
 fi
 if [[ ! -x .venv/bin/python ]]; then
   echo "Environment setup did not create .venv/bin/python."
@@ -63,7 +59,7 @@ PYTHON_SET_ENV
         .venv/bin/python - <<'PYTHON_SERVICE' | sudo tee /etc/systemd/system/thirdeye.service >/dev/null
 import os
 from pathlib import Path
-text = Path("deployment/thirdeye.service").read_text(encoding="utf-8")
+text = Path("deployment/ubuntu/thirdeye.service").read_text(encoding="utf-8")
 text = text.replace("@SERVICE_USER@", os.environ["THIRDEYE_SERVICE_USER"])
 text = text.replace("@PROJECT_ROOT@", os.environ["THIRDEYE_PROJECT_ROOT"])
 print(text, end="")

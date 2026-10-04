@@ -2,7 +2,7 @@
 
 Model weights are downloaded during setup or first use and are not committed to the repository.
 
-- `deployment/setup.sh` downloads MediaPipe's `hand_landmarker.task` into this directory.
+- `deployment/ubuntu/ubuntu_setup.sh` downloads MediaPipe's `hand_landmarker.task` into this directory.
 - Ultralytics downloads the selected YOLOE checkpoint and prompt encoder on first use.
 - Local Whisper and other optional models may download weights on first use.
 

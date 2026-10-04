@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 cd "$PROJECT_ROOT"
 PYTHON="${PYTHON:-python3.12}"
 
@@ -50,4 +51,4 @@ fi
 echo
 echo "Install finished. Edit .env and set OPENAI_API_KEY and model IDs."
 echo "Set the device address and matching token in firmware/thirdeye_ai_device/thirdeye_ai_device.ino."
-echo "Run ./deployment/run.sh --device-test before starting voice control."
+echo "Run ./deployment/ubuntu/ubuntu_run.sh --device-test before starting voice control."

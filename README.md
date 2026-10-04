@@ -40,7 +40,8 @@ The deployment setup downloads the MediaPipe hand model; Ultralytics and other o
 ```text
 audio_cues/                       Spoken navigation cues
 companion/                        Website, live viewer, and Telegram alert service
-deployment/                       Setup, launch, and service files
+deployment/windows/               Windows setup and launch scripts
+deployment/ubuntu/                 Ubuntu setup, launch, and service files
 firmware/thirdeye_ai_device/      ESP32-S3 integrated firmware
 models/                           Model download notes
 src/thirdeye/                     AI service and application modules
@@ -53,13 +54,46 @@ pyproject.toml                    Python package metadata
 
 ## Deployment
 
-The AI service is intended to run on a Linux computer near the glasses so it can access the camera, microphone, speaker, and local network while handling AI workloads. From the cloned project directory, start voice control with:
+Choose the folder for your operating system. Both setup scripts create a Python virtual environment and copy `.env.example` to `.env`; set the API key, model IDs, and device token there. Flash the firmware with the local Wi-Fi details, AI host address, and the same private token.
 
-```bash
-./deployment/run.sh --voice-control
+### Windows
+
+From PowerShell in the project root:
+
+```powershell
+.\deployment\windows\windows_setup.ps1
 ```
 
-On first launch, the script prepares the Python environment, creates `.env`, and asks for missing API/model settings and the private device token. It may ask for administrator credentials to install system packages. On a system with systemd, it installs and starts the service so it starts again after reboot. Flash the firmware once with the local Wi-Fi details, AI host address, and the same private token entered in `.env`.
+If PowerShell blocks local scripts, run it for this invocation with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\deployment\windows\windows_setup.ps1
+```
+
+Edit `.env`, then run device checks and voice control:
+
+```powershell
+.\deployment\windows\windows_run.ps1 --device-test
+.\deployment\windows\windows_run.ps1 --mic-test
+.\deployment\windows\windows_run.ps1 --speaker-test
+.\deployment\windows\windows_run.ps1 --voice-control
+```
+
+### Ubuntu
+
+From a terminal in the project root:
+
+```bash
+chmod +x deployment/ubuntu/*.sh
+./deployment/ubuntu/ubuntu_setup.sh
+nano .env
+./deployment/ubuntu/ubuntu_run.sh --device-test
+./deployment/ubuntu/ubuntu_run.sh --mic-test
+./deployment/ubuntu/ubuntu_run.sh --speaker-test
+./deployment/ubuntu/ubuntu_run.sh --voice-control
+```
+
+The Ubuntu launcher installs and starts the systemd service on the first voice-control launch. It may request administrator credentials to install system packages and register the service.
 
 To enable the website and Telegram alerts, configure `companion/.env` from `companion/.env.example`, including `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and a publicly reachable HTTPS `PUBLIC_URL`. Deploy the companion service at that address with WebSocket support, then install and start it from `companion/`:
 
