@@ -2,6 +2,8 @@
 
 ThirdEye is a voice-guided visual assistance prototype. An ESP32-S3 camera captures the wearer's view while the AI service handles voice requests, object finding, scene descriptions, and spoken guidance. A companion website lets invited viewers open the live camera feed from an alert link.
 
+The proposal frames ThirdEye as an effort to make assistive technology more accessible to people with visual impairment. This repository covers the current glasses prototype; the proposed haptic stick, ToF obstacle mapping, and GPS features remain future work.
+
 > ThirdEye is a prototype. Object guidance and suspected-fall detection are not safety-certified and must not replace human assistance.
 
 ## Features
