@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Algorithm Atlas - a focused workspace for understanding algorithms.">
+  <title>Algorithm Atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="Algorithm Atlas home">
+        <span class="brand-mark">A</span>
+        <span>algorithm<br><strong>atlas</strong></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#top"><span class="nav-icon">⌂</span>Overview</a>
+        <a class="nav-link" href="#explore"><span class="nav-icon">⌘</span>Explore</a>
+        <a class="nav-link" href="#playground"><span class="nav-icon">↗</span>Playground</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="progress-card">
+          <span class="eyebrow">Your progress</span>
+          <div class="progress-value"><strong>04</strong><span>/ 12 paths</span></div>
+          <div class="progress-track"><span></span></div>
+          <small>Keep the momentum going.</small>
+        </div>
+        <div class="sidebar-foot"><span class="status-dot"></span> ACE6123 · 2026</div>
+      </div>
+    </aside>
+
+    <main id="top" class="content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><span class="muted">Overview</span></div>
+        <div class="top-actions">
+          <button class="icon-button" aria-label="Toggle color theme" id="themeToggle">◐</button>
+          <div class="avatar" title="Your profile">AS</div>
+        </div>
+      </header>
+
+      <section class="hero-section">
+        <div class="hero-copy">
+          <p class="eyebrow accent">ALGORITHM ASSIGNMENT / 01</p>
+          <h1>Make complexity<br><em>feel simple.</em></h1>
+          <p class="hero-text">A visual workspace for breaking down algorithms, spotting patterns, and building stronger intuition one step at a time.</p>
+          <a class="primary-button" href="#explore">Start exploring <span>↗</span></a>
+        </div>
+        <div class="hero-art" aria-label="Abstract algorithm network illustration">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="node node-a">O(n)</div>
+          <div class="node node-b">O(log n)</div>
+          <div class="node node-c">O(1)</div>
+          <div class="node node-d">O(n²)</div>
+          <span class="connector connector-a"></span><span class="connector connector-b"></span><span class="connector connector-c"></span>
+          <div class="core">∿</div>
+          <span class="art-label label-top">COMPLEXITY<br><strong>MAP</strong></span>
+          <span class="art-label label-bottom">FOCUS<br><strong>MODE</strong></span>
+        </div>
+      </section>
+
+      <section class="stats-row" aria-label="Assignment statistics">
+        <div class="stat"><span class="stat-label">Paths explored</span><strong>04</strong><span class="stat-note up">↑ 2 this week</span></div>
+        <div class="stat"><span class="stat-label">Concepts mapped</span><strong>27</strong><span class="stat-note">of 48 total</span></div>
+        <div class="stat"><span class="stat-label">Current streak</span><strong>06 <small>days</small></strong><span class="stat-note warm">On a roll</span></div>
+        <div class="stat quote-stat"><span class="quote-mark">“</span><p>The best way to learn an algorithm is to make it visible.</p><span class="quote-by">— Unknown</span></div>
+      </section>
+
+      <section class="explore-section" id="explore">
+        <div class="section-heading"><div><p class="eyebrow">CURATED PATHS</p><h2>Where do you want to go?</h2></div><button class="text-button" id="showAll">View all <span>→</span></button></div>
+        <div class="filter-row" role="group" aria-label="Filter algorithm paths">
+          <button class="filter active" data-filter="all">All paths</button><button class="filter" data-filter="search">Search</button><button class="filter" data-filter="sort">Sorting</button><button class="filter" data-filter="graph">Graphs</button>
+        </div>
+        <div class="path-grid" id="pathGrid">
+          <article class="path-card featured" data-category="search"><div class="card-top"><span class="path-number">01 / 04</span><span class="arrow">↗</span></div><div class="path-visual search-visual"><span class="search-line"></span><i></i><i></i><i></i><i></i><b>?</b></div><div class="path-details"><span class="tag">SEARCH</span><h3>Find the signal</h3><p>Binary search, linear search, and the art of narrowing a question.</p><div class="card-meta"><span>06 concepts</span><span>12 min</span></div></div></article>
+          <article class="path-card" data-category="sort"><div class="card-top"><span class="path-number">02 / 04</span><span class="arrow">↗</span></div><div class="path-visual sort-visual"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="path-details"><span class="tag orange">SORTING</span><h3>Order from noise</h3><p>See how small decisions create an ordered world.</p><div class="card-meta"><span>08 concepts</span><span>18 min</span></div></div></article>
+          <article class="path-card" data-category="graph"><div class="card-top"><span class="path-number">03 / 04</span><span class="arrow">↗</span></div><div class="path-visual graph-visual"><span></span><span></span><span></span><span></span><i></i><i></i></div><div class="path-details"><span class="tag green">GRAPHS</span><h3>Read the network</h3><p>Traverse connections with confidence, from A to anywhere.</p><div class="card-meta"><span>07 concepts</span><span>24 min</span></div></div></article>
+        </div>
+      </section>
+
+      <section class="playground-section" id="playground">
+        <div class="section-heading"><div><p class="eyebrow">TRY IT YOURSELF</p><h2>Sorting playground</h2></div><span class="live-badge"><span></span> LIVE DEMO</span></div>
+        <div class="playground"><div class="bars" id="bars" aria-label="Array visualization"></div><div class="playground-controls"><div><span class="mono-label">ARRAY / <b id="arrayLabel">RANDOM</b></span><button class="shuffle-button" id="shuffleButton">Shuffle array ↻</button></div><div class="sort-controls"><button class="sort-button active" data-sort="bubble">Bubble sort</button><button class="sort-button" data-sort="selection">Selection sort</button><button class="run-button" id="runButton">Run sort <span>▶</span></button></div></div></div>
+      </section>
+
+      <footer><span>Built for curious minds.</span><span>ACE6123 / Algorithm Assignment</span></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

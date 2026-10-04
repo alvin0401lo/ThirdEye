@@ -1,0 +1,15 @@
+fastapi>=0.115,<1
+faster-whisper>=1.1,<2
+numpy>=1.26,<2
+lap>=0.5.12,<1
+openai>=2.0,<3
+opencv-python>=4.10,<4.12
+pydantic>=2.8,<3
+python-dotenv>=1.0,<2
+sounddevice>=0.5,<1
+ultralytics>=8.4.0,<9
+uvicorn>=0.34,<1
+websockets>=14,<17
+absl-py~=2.3
+certifi
+flatbuffers~=25.9

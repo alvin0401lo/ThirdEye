@@ -1,0 +1,18 @@
+[Unit]
+Description=ThirdEye voice control
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+WorkingDirectory="@PROJECT_ROOT@"
+ExecStart="@PROJECT_ROOT@/.venv/bin/python" -m thirdeye --voice-control
+Environment=OMP_NUM_THREADS=4
+Environment=OPENBLAS_NUM_THREADS=2
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
